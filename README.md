@@ -14,9 +14,15 @@ scripts/            repo tooling — static server, site build, browser test dri
 
 ## Use it without installing anything
 
-The app is deployed to GitHub Pages on every push to `main`:
+The app deploys to GitHub Pages on every push to `main`:
 
 **<https://harrybbq.github.io/NOC-Reports/>**
+
+> **One-time setup:** Pages has to be switched on by hand before the first
+> deploy can succeed — a workflow token isn't allowed to create the Pages site.
+> Go to **Settings → Pages → Build and deployment** and set **Source** to
+> **GitHub Actions**, then re-run the "Deploy to GitHub Pages" workflow from the
+> Actions tab. Every later push deploys on its own.
 
 Open it in any browser — nothing to install, nothing to run locally. Parsing
 happens entirely in the browser tab: the code makes no network calls and no
@@ -50,7 +56,9 @@ point `CHROME_PATH` at a binary if it can't find one.
 - **`ci.yml`** — runs both test routes (Node and headless Chrome) on every push
   and pull request.
 - **`pages.yml`** — on push to `main`, runs the suite, builds `_site/`, and
-  deploys to Pages. A failing suite blocks the deploy.
+  deploys to Pages. A failing suite blocks the deploy. Needs the one-time
+  Pages toggle above; until it is set, the "Configure Pages" step fails with
+  `Get Pages site failed … Not Found`.
 
 `_site/` is generated, not committed: it's `standalone/` copied verbatim plus a
 `.nojekyll` marker and a landing `index.html`. The landing page is only
