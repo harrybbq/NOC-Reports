@@ -1,0 +1,10 @@
+{
+  "name": "ips-report-generator-standalone",
+  "version": "0.1.0",
+  "description": "Local IPS report generator (Check Point + Fortinet). Runs in a browser with no build step; this package.json only exists so Node treats .js files as ES modules for the node-run.js test harness.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node node-run.js"
+  }
+}

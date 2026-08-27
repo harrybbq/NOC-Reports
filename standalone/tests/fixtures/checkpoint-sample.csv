@@ -1,0 +1,8 @@
+Time,Action,Severity,Source,Destination,Protection Name,Resource,Suppressed Logs
+2026-04-01 09:15:22,Prevent,Critical,185.177.72.61,NHS-SC_62.172.145.168 (62.172.145.168),Apache Log4j Remote Code Execution (CVE-2021-44228),/admin/index.php,17
+2026-04-01 10:03:11,Prevent,High,52.17.9.21,analytics.supplychain.nhs.uk_81.144.150.138 (81.144.150.138),Detectify Security Scanner,/robots.txt,3
+2026-04-02 14:22:05,Prevent,Critical,203.0.113.44,portal.supplychain.nhs.uk_62.172.145.170 (62.172.145.170),Microsoft Windows HTTP.sys Remote Code Execution (MS15-034: CVE-2015-1635),/,0
+2026-04-03 02:11:59,Detect,Medium,198.51.100.7,NHS-SC_62.172.145.168 (62.172.145.168),Malware Delivery Attempt (CVE-2023-38831 CVE-2023-4863),GET /downloads/payload.zip HTTP/1.1 Host: evil.example.com Content: http://malware.example.com/dropper.exe,0
+2026-04-03 08:45:33,Prevent,High,192.0.2.55,10.20.30.40,Nmap Scripting Engine Scanner Over HTTP Request,/.git/config,42
+2026-04-04 11:00:00,Prevent,Low,10.10.10.10,NHS-SC_62.172.145.168 (62.172.145.168),Null HTTP Encodings,,0
+Failed exporting table.,,,,,,,

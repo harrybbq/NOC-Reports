@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IPS Report Generator — Tests</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 24px; background: #f7f8fa; color: #1a1a2e; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .lede { font-size: 13px; color: #5f6b7d; margin-bottom: 20px; }
+  .lede code { background: #eef2fa; padding: 1px 6px; border-radius: 4px; }
+  #results { max-width: 960px; }
+  .summary { padding: 12px 16px; border-radius: 8px; font-weight: 600; margin-bottom: 12px; }
+  .summary.all-pass { background: #d1f0e0; color: #0f5132; }
+  .summary.some-fail { background: #fce4ec; color: #8a1f3a; }
+  .test { padding: 8px 12px; border-radius: 6px; margin-bottom: 4px; font-family: SFMono-Regular, Consolas, monospace; font-size: 13px; }
+  .test.pending { background: #fff; color: #8a94a3; }
+  .test.pass { background: #f0faf6; color: #0f5132; }
+  .test.fail { background: #fceeee; color: #8a1f3a; }
+  .fail-name { font-weight: 600; margin-bottom: 6px; }
+  .fail-msg { white-space: pre-wrap; margin: 6px 0; background: #fff; padding: 8px 10px; border-radius: 4px; font-size: 12px; }
+  .fail-stack { white-space: pre-wrap; margin: 6px 0 0; background: #fff; padding: 8px 10px; border-radius: 4px; font-size: 11px; color: #5f6b7d; max-height: 200px; overflow: auto; }
+</style>
+</head>
+<body>
+  <h1>IPS Report Generator — Test Suite</h1>
+  <div class="lede">
+    Must be served over HTTP, not opened via <code>file://</code>. Simplest:
+    <code>python -m http.server</code> from the <code>standalone/</code> directory, then open
+    <code>http://localhost:8000/tests.html</code>.
+  </div>
+  <div id="results"><div class="test pending">loading…</div></div>
+
+<script type="module">
+  // Import test files for side-effects (they call test() to register).
+  await import("./tests/cve-defang.test.js");
+  await import("./tests/parse-checkpoint.test.js");
+  await import("./tests/parse-fortinet.test.js");
+  await import("./tests/validate.test.js");
+  const { runAll } = await import("./tests/runner.js");
+  const result = await runAll(document.getElementById("results"));
+  document.title = `${result.fail === 0 ? "✓" : "✗"} ${result.pass}/${result.total} — IPS Tests`;
+</script>
+</body>
+</html>

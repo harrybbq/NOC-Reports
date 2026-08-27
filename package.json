@@ -1,0 +1,15 @@
+{
+  "name": "noc-reports",
+  "version": "0.1.0",
+  "description": "NOC reporting tooling. Currently hosts the standalone IPS Report Generator (Check Point + Fortinet parsers and validator).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node standalone/node-run.js",
+    "serve": "node scripts/serve.js",
+    "start": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
