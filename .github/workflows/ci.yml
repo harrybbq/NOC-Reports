@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # There are no dependencies and no lockfile by design, so there is
+      # nothing to install and no cache to restore.
+      - name: Node harness
+        run: npm test
+
+      # Catches anything that only breaks under real browser URL resolution
+      # and real ES-module loading. Uses the Chrome preinstalled on the
+      # runner image — no Playwright download.
+      - name: Headless browser
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: npm run test:browser

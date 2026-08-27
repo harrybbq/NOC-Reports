@@ -55,9 +55,17 @@ Both routes exercise the same test files.
 
 From the repo root, `npm test` and `npm run serve` do the same two things
 without the `cd` — the server is `scripts/serve.js`, dependency-free, and
-serves this directory on port 8000.
+serves this directory on port 8000. `npm run test:browser` runs the browser
+route headlessly, which is what CI checks on every push.
 
-Current suite: **39 assertions, all passing.**
+The suite is also deployed and runnable at
+<https://harrybbq.github.io/NOC-Reports/tests.html> — no local setup at all.
+
+Current suite: **39 assertions, all passing** — on both routes. (The browser
+route originally 404'd every fixture: `loadFixture` resolved relative paths
+against `tests.html` at the site root instead of against `tests/runner.js`,
+and the Node harness's `fetch` stub hid it. `runner.js` now resolves fixtures
+against its own module URL.)
 
 ## Design notes worth reading before touching the code
 

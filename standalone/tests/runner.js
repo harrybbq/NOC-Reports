@@ -42,9 +42,15 @@ export function assertThrows(fn, expectedMsgPart, message) {
   throw new Error(message || "assertThrows: no error thrown");
 }
 
-// Fixture loader
+// Fixture loader.
+//
+// Resolved against this module's own URL, not the document's. A bare relative
+// path would resolve against tests.html at the site root (-> /fixtures/...)
+// rather than against this file (-> /tests/fixtures/...), which 404s in the
+// browser while the Node harness's fetch stub papers over it.
 export async function loadFixture(path) {
-  const res = await fetch(path);
+  const url = new URL(path, import.meta.url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`Fixture load failed: ${path} (${res.status})`);
   return res.text();
 }

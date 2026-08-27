@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "test": "node standalone/node-run.js",
+    "test:browser": "npm run build:site && node scripts/browser-test.js",
+    "build:site": "node scripts/build-site.js",
     "serve": "node scripts/serve.js",
     "start": "node scripts/serve.js"
   },

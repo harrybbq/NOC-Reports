@@ -9,12 +9,16 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 
 globalThis.fetch = async (spec) => {
-  const target = path.resolve(HERE, "tests", spec);
+  // loadFixture resolves against runner.js, so specs arrive as file: URLs;
+  // a plain relative string is still accepted and read from tests/.
+  const target = String(spec).startsWith("file:")
+    ? fileURLToPath(spec)
+    : path.resolve(HERE, "tests", spec);
   try {
     const text = await fs.readFile(target, "utf8");
     return { ok: true, status: 200, text: async () => text };
